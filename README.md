@@ -54,7 +54,7 @@ Download the repo and enter its root directory.
 Take the address from the above log and add to oracle_daemon.js
 
     #run local test node
-    testrpc --acount=”<team private key>, 100000000000000000000”
+    testrpc --acount="<team private key>, 100000000000000000000"
 
     #run oracle daemon script
     node oracle_dameon.js

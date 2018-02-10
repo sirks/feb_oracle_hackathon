@@ -24,5 +24,3 @@ contract EventEmitter{
         return testString;
     }
 }
-
-    

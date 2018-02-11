@@ -30,13 +30,13 @@ function getContractString() {
 }
 
 function buildCallback(getData) {
-    return async (query) => {
+    return (query) => {
         if (query.returnValues.oracleAddress !== settings.oracleAddress) {
             return;
         }
         const queryString = query.returnValues.queryString;
-        const data = await getData(queryString);
-        respondContractQuery(data);
+        const dataPromise = getData(queryString);
+        dataPromise.then(data => respondContractQuery(data));
     }
 }
 

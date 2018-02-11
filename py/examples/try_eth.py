@@ -13,7 +13,7 @@ w3 = Web3(HTTPProvider('http://localhost:8545'))
 
 contract = w3.eth.contract(
 	json_decode(contract_abi),
-	"0xd92b5f8c7fcbd35b5858a9f9bc7ab1d6f52d3318",
+	"0x6d1fa96c1775ea00995a61222fce3e5ae5a356f8",
 )
 
 # Getters + Setters for web3.eth.contract object

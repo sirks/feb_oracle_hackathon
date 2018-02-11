@@ -1,11 +1,12 @@
 // Load Ethereum
 const Web3 = require('web3');
-const fs = require('fs');
+const request = require('request');
 const provider = 'ws://localhost:8545';
 
 const web3 = new Web3(new Web3.providers.WebsocketProvider(provider));
 const eth = web3.eth;
 
+const ORACLE_ADDRESS = "0x8cC628f5492Ca0ceF7918E5BF9554800C4d01760";
 /*
 provider account
 */
@@ -45,17 +46,49 @@ function respondContractQuery(responseString){
         .send({from: account_number})
 }
 
+function getContractString() {
+    eventEmitterContract.methods.getString()
+        .call({from: account_number})
+        .then((res) => {
+            console.log(`contract string = ${res}`);
+        })
+        .catch((err) => console.error(err))
+}
+
+// getContractString();
+
 /*
 Handle Query events from EventEmitter contract
 event Query(string queryString, address queryAddress);
 */
 
-const queryEvent = eventEmitterContract.events.Query();
-queryEvent.on("data", callback);
+eventEmitterContract.events.Query().on("data", callback);
 
-function callback(q) {
-    console.log(q);
-    // do something
+function callback(query) {
+    if (query.returnValues.oracleAddress !== ORACLE_ADDRESS){
+        return;
+    }
+    const queryString = query.returnValues.queryString;
+    console.log(`queryString = ${queryString}`);
+    getData(queryString)
 }
 
-triggerContractQuery("1234", "0x8cc628f5492ca0cef7918e5bf9554800c4d01760");
+function getData(query) {
+    request(`https://api.wheretheiss.at/v1/satellites/${query}`,
+        (error, res, body) => {
+            if (!res || res.statusCode >= 300) {
+                console.error("could not get resp");
+                return;
+            }
+            const altitude = JSON.parse(body).altitude.toString();
+            console.log(altitude);
+            // updateContract(altitude);
+        });
+}
+
+function updateContract(altitude) {
+    respondContractQuery(altitude);
+    getContractString();
+}
+
+triggerContractQuery("25544", ORACLE_ADDRESS);

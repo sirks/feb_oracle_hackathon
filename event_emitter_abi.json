@@ -14,6 +14,12 @@
 		"type": "function"
 	},
 	{
+		"inputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
 		"anonymous": false,
 		"inputs": [
 			{
@@ -32,13 +38,8 @@
 	},
 	{
 		"constant": false,
-		"inputs": [
-			{
-				"name": "response",
-				"type": "string"
-			}
-		],
-		"name": "callBack",
+		"inputs": [],
+		"name": "fireTestEvent",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -64,15 +65,20 @@
 	},
 	{
 		"constant": false,
-		"inputs": [],
-		"name": "fireTestEvent",
+		"inputs": [
+			{
+				"name": "response",
+				"type": "string"
+			}
+		],
+		"name": "callBack",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
-		"constant": false,
+		"constant": true,
 		"inputs": [],
 		"name": "getString",
 		"outputs": [
@@ -84,25 +90,6 @@
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "_testString",
-				"type": "string"
-			}
-		],
-		"name": "setString",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "constructor"
 	}
 ]
+

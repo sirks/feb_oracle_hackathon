@@ -4,10 +4,9 @@ const settings = require('./settings');
 
 const daemon = initDaemon(getData);
 
-(async () => console.log(await daemon.getContractString()))()
-    .catch(console.error);
+daemon.getContractString();
 daemon.triggerContractQuery("25544", settings.oracleAddress);
 setTimeout(
-    async () => console.log(await daemon.getContractString()),
+    async () => await daemon.getContractString(),
     1000
 );

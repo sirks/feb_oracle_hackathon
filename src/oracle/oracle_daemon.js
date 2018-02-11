@@ -24,7 +24,9 @@ function respondContractQuery(responseString) {
 }
 
 function getContractString() {
-    return eventEmitterContract.methods.getString().call(defaultOptions)
+    return eventEmitterContract.methods.getString()
+        .call(defaultOptions)
+        .then((res) => console.log("contract string = ", res));
 }
 
 function buildCallback(getData) {
